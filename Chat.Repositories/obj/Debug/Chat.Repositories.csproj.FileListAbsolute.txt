@@ -1,0 +1,11 @@
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Repositories.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Repositories.pdb
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.DataLayer.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Models.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\EntityFramework.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.DataLayer.pdb
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Models.pdb
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\EntityFramework.xml
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.csprojResolveAssemblyReference.cache
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.pdb

@@ -1,0 +1,5 @@
+E:\Dev\Projects\DoubleGChat.Services\Chat.Models\bin\Debug\Chat.Models.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Models\bin\Debug\Chat.Models.pdb
+E:\Dev\Projects\DoubleGChat.Services\Chat.Models\obj\Debug\Chat.Models.csprojResolveAssemblyReference.cache
+E:\Dev\Projects\DoubleGChat.Services\Chat.Models\obj\Debug\Chat.Models.dll
+E:\Dev\Projects\DoubleGChat.Services\Chat.Models\obj\Debug\Chat.Models.pdb
