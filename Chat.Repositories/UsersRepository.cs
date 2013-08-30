@@ -47,5 +47,64 @@ namespace Chat.Repositories
             user.SessionKey = sessionKey;
             chatContext.SaveChanges();
         }
+
+        public bool SendContactRequest(User sender, User receiver)
+        {
+            chatContext.Users.Attach(sender);
+            chatContext.Users.Attach(receiver);
+
+            if(receiver.ContactRequests.Any(c => c.Sender.Id == sender.Id))
+            {
+                return false;
+            }
+
+            receiver.ContactRequests.Add(new ContactRequest(){Sender = sender});
+            chatContext.SaveChanges();
+            return true;
+        }
+
+        public bool AcceptContactRequest(int requestId, User user)
+        {
+            var request = chatContext.ContactRequests.FirstOrDefault(c => c.Id == requestId);
+            if(request == null)
+            {
+                return false;
+            }
+
+            chatContext.Users.Attach(user);
+            if(!user.ContactRequests.Any(c => c.Id == requestId))
+            {
+                return false;
+            }
+
+            user.Contacts.Add(request.Sender);
+            request.Sender.Contacts.Add(user);
+            chatContext.SaveChanges();
+
+            chatContext.ContactRequests.Remove(request);
+            chatContext.SaveChanges();
+
+            return true;
+        }
+
+        public bool DenyContactRequest(int requestId, User user)
+        {
+            var request = chatContext.ContactRequests.FirstOrDefault(c => c.Id == requestId);
+            if (request == null)
+            {
+                return false;
+            }
+
+            chatContext.Users.Attach(user);
+            if (!user.ContactRequests.Any(c => c.Id == requestId))
+            {
+                return false;
+            }
+
+            chatContext.ContactRequests.Remove(request);
+            chatContext.SaveChanges();
+
+            return true;
+        }
     }
 }

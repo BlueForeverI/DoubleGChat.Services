@@ -17,10 +17,12 @@ namespace Chat.Models
         public string ProfilePictureUrl { get; set; }
 
         public virtual ICollection<User> Contacts { get; set; }
+        public virtual ICollection<ContactRequest> ContactRequests { get; set; } 
  
         public User()
         {
             Contacts = new HashSet<User>();
+            ContactRequests = new HashSet<ContactRequest>();
         }
     }
 }

@@ -10,6 +10,12 @@ namespace Chat.Services
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
+                   name: "ContactsApi",
+                   routeTemplate: "api/contacts/{action}/{id}",
+                   defaults: new { controller = "contacts", id = RouteParameter.Optional }
+               );
+
+            config.Routes.MapHttpRoute(
                    name: "UserApi",
                    routeTemplate: "api/users/{action}/{id}",
                    defaults: new { controller = "users", id=RouteParameter.Optional }

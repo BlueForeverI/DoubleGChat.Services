@@ -37,28 +37,6 @@ namespace Chat.Services.Controllers
         }
 
         [HttpGet]
-        [ActionName("contacts")]
-        public HttpResponseMessage Friends(
-            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
-        {
-            var user = usersRepository.GetBySessionKey(sessionKey);
-            if (user == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
-            }
-
-            var contacts = user.Contacts.Select(u => new UserModel()
-                                                         {
-                                                             Username = u.Username,
-                                                             FirstName = u.FirstName,
-                                                             LastName = u.LastName,
-                                                             ProfilePictureUrl = u.ProfilePictureUrl
-                                                         });
-
-            return Request.CreateResponse(HttpStatusCode.OK, contacts);
-        }
-
-        [HttpGet]
         [ActionName("byid")]
         public User GetById(int id)
         {
