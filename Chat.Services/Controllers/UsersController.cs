@@ -44,6 +44,21 @@ namespace Chat.Services.Controllers
         }
 
         [HttpPost]
+        [ActionName("session")]
+        public HttpResponseMessage ValidateSessionKey([FromBody]User value)
+        {
+            var user = usersRepository.GetBySessionKey(value.SessionKey);
+            if(user != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK,
+                                              new UserLoggedModel()
+                                                  {Username = user.Username, SessionKey = user.SessionKey});
+            }
+
+            return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+        }
+
+        [HttpPost]
         [ActionName("register")]
         public HttpResponseMessage Register([FromBody]User value)
         {
