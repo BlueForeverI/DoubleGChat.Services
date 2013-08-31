@@ -9,3 +9,14 @@ E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\bin\Debug\EntityFramework
 E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.csprojResolveAssemblyReference.cache
 E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.dll
 E:\Dev\Projects\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.pdb
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Repositories.dll
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Repositories.pdb
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.DataLayer.dll
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Models.dll
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\EntityFramework.dll
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.DataLayer.pdb
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\Chat.Models.pdb
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\bin\Debug\EntityFramework.xml
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.csprojResolveAssemblyReference.cache
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.dll
+C:\Users\George\Documents\Win8 JS\Teamwork\DoubleGChat.Services\Chat.Repositories\obj\Debug\Chat.Repositories.pdb

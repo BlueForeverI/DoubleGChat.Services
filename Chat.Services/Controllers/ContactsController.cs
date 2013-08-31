@@ -35,10 +35,12 @@ namespace Chat.Services.Controllers
 
             var contacts = user.Contacts.Select(u => new UserModel()
             {
+                Id = u.Id,
                 Username = u.Username,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                ProfilePictureUrl = u.ProfilePictureUrl
+                ProfilePictureUrl = u.ProfilePictureUrl,
+                Online = u.Online
             });
 
             return Request.CreateResponse(HttpStatusCode.OK, contacts);

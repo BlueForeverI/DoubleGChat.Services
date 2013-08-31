@@ -29,12 +29,12 @@ namespace Chat.Services.Controllers
             this.usersRepository = new UsersRepository(context);
         }
 
-        [HttpGet]
-        [ActionName("all")]
-        public IQueryable<User> All()
-        {
-            return usersRepository.All();
-        }
+        //[HttpGet]
+        //[ActionName("all")]
+        //public IQueryable<User> All()
+        //{
+        //    return usersRepository.All();
+        //}
 
         [HttpGet]
         [ActionName("byid")]
@@ -50,6 +50,7 @@ namespace Chat.Services.Controllers
             var user = usersRepository.GetBySessionKey(value.SessionKey);
             if(user != null)
             {
+                usersRepository.SetOnline(user, true);
                 return Request.CreateResponse(HttpStatusCode.OK,
                                               new UserLoggedModel()
                                                   {Username = user.Username, SessionKey = user.SessionKey});
@@ -88,8 +89,17 @@ namespace Chat.Services.Controllers
             {
                 var sessionKey = GenerateSessionKey(user.Id);
                 usersRepository.SetSessionKey(user, sessionKey);
+                usersRepository.SetOnline(user, true);
 
-                var userModel = new UserLoggedModel() {SessionKey = sessionKey, Username = user.Username};
+                var userModel = new UserModel()
+                                    {
+                                        Id = user.Id,
+                                        SessionKey = sessionKey, 
+                                        Username = user.Username,
+                                        FirstName = user.FirstName,
+                                        LastName = user.LastName,
+                                        ProfilePictureUrl = user.ProfilePictureUrl
+                                    };
                 return Request.CreateResponse(HttpStatusCode.OK, userModel);
             }
             else
@@ -109,6 +119,7 @@ namespace Chat.Services.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
             }
 
+            usersRepository.SetOnline(user, false);
             usersRepository.Logout(user);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -119,6 +130,21 @@ namespace Chat.Services.Controllers
         {
             var user = usersRepository.GetByUsername(userData.Username);
             return user;
+        }
+
+        [HttpGet]
+        [ActionName("offline")]
+        public HttpResponseMessage SetUserOffline(
+            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+            }
+
+            usersRepository.SetOnline(user, false);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         private string GenerateSessionKey(int userId)

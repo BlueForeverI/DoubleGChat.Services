@@ -15,6 +15,7 @@ namespace Chat.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ProfilePictureUrl { get; set; }
+        public bool Online { get; set; }
 
         public virtual ICollection<User> Contacts { get; set; }
         public virtual ICollection<ContactRequest> ContactRequests { get; set; } 

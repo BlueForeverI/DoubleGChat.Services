@@ -106,5 +106,12 @@ namespace Chat.Repositories
 
             return true;
         }
+
+        public void SetOnline(User user, bool online)
+        {
+            chatContext.Users.Attach(user);
+            user.Online = online;
+            chatContext.SaveChanges();
+        }
     }
 }
