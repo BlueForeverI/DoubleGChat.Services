@@ -29,12 +29,55 @@ namespace Chat.Services.Controllers
             this.usersRepository = new UsersRepository(context);
         }
 
-        //[HttpGet]
-        //[ActionName("all")]
-        //public IQueryable<User> All()
-        //{
-        //    return usersRepository.All();
-        //}
+        [HttpGet]
+        [ActionName("all")]
+        public HttpResponseMessage GetAllUsers(
+            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if(user != null)
+            {
+                var users = usersRepository.All()
+                    .Select(u => new UserModel()
+                                     {
+                                         Id = u.Id,
+                                         Username = u.Username,
+                                         FirstName = u.FirstName,
+                                         LastName = u.LastName,
+                                         ProfilePictureUrl = u.ProfilePictureUrl
+                                     });
+
+                return Request.CreateResponse(HttpStatusCode.OK, users);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+        }
+
+        [HttpPost]
+        [ActionName("search")]
+        public HttpResponseMessage SearchUsers([FromBody]QueryModel value, 
+            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if(user != null)
+            {
+                var users = usersRepository.All()
+                    .Where(u => u.Username.ToLower().Contains(value.QueryText.ToLower()))
+                    .Select(u => new UserModel()
+                                     {
+                                         Id = u.Id,
+                                         Username = u.Username,
+                                         FirstName = u.FirstName,
+                                         LastName = u.LastName,
+                                         ProfilePictureUrl = u.ProfilePictureUrl
+                                     }).ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, users);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+        }
 
         [HttpGet]
         [ActionName("byid")]
