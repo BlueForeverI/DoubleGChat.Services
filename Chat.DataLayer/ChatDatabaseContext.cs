@@ -19,5 +19,19 @@ namespace Chat.DataLayer
         public DbSet<Message> Messages { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<ContactRequest> ContactRequests { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Contacts)
+                .WithMany(u => u.Contacts).Map(map =>
+                                                   {
+                                                       map.ToTable("UsersUsers");
+                                                       map.MapLeftKey("FirstUserId");
+                                                       map.MapRightKey("SecondUserId");
+                                                   });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
