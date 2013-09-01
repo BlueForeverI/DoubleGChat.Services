@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.ValueProviders;
 using Chat.DataLayer;
+using Chat.Models;
 using Chat.Repositories;
 using Chat.Services.Models;
 using Forum.WebApi.Attributes;
@@ -106,6 +107,34 @@ namespace Chat.Services.Controllers
 
             return Request.CreateResponse(HttpStatusCode.BadRequest,
                                           "Wrong contact request");
+        }
+
+        [HttpGet]
+        [ActionName("requests")]
+        public HttpResponseMessage GetAllContactRequests(
+            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+            }
+
+            var requests = user.ContactRequests.Select(c => new ContactRequest()
+            {
+                Id = c.Id,
+                Sender = new User()
+                                {
+                                    Id = c.Sender.Id,
+                                    Username = c.Sender.Username,
+                                    FirstName = c.Sender.FirstName,
+                                    LastName = c.Sender.LastName,
+                                    ProfilePictureUrl =
+                                    c.Sender.ProfilePictureUrl
+                                }
+            });
+
+            return Request.CreateResponse(HttpStatusCode.OK, requests);
         }
     }
 }
