@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -61,6 +62,31 @@ namespace Chat.Services.Controllers
             var secondUsername = users[1].Username;
 
             var conversation = conversationsRepository.GetByUsers(firstUsername, secondUsername);
+            if(conversation != null)
+            {
+                
+                return new Conversation()
+                           {
+                               Id = conversation.Id,
+                               FirstUser = new User()
+                                               {
+                                                   Id = conversation.FirstUser.Id,
+                                                   Username = conversation.FirstUser.Username,
+                                                   FirstName = conversation.FirstUser.FirstName,
+                                                   LastName = conversation.FirstUser.LastName,
+                                                   ProfilePictureUrl = conversation.FirstUser.ProfilePictureUrl
+                                               },
+                               SecondUser = new User()
+                               {
+                                   Id = conversation.SecondUser.Id,
+                                   Username = conversation.SecondUser.Username,
+                                   FirstName = conversation.SecondUser.FirstName,
+                                   LastName = conversation.SecondUser.LastName,
+                                   ProfilePictureUrl = conversation.SecondUser.ProfilePictureUrl
+                               },
+                           };
+            }
+
             return conversation;
         }
     }
