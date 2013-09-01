@@ -120,7 +120,21 @@ namespace Chat.Services.Controllers
             }
 
             usersRepository.Add(value);
-            return Request.CreateResponse(HttpStatusCode.Created);
+            var sessionKey = GenerateSessionKey(value.Id);
+            usersRepository.SetSessionKey(value, sessionKey);
+            usersRepository.SetOnline(value, true);
+            var userModel = new UserModel()
+                                {
+                                    Id = value.Id,
+                                    Username = value.Username,
+                                    SessionKey = sessionKey,
+                                    FirstName = value.Username,
+                                    LastName = value.LastName,
+                                    Online = true,
+                                    ProfilePictureUrl = value.ProfilePictureUrl
+                                };
+
+            return Request.CreateResponse(HttpStatusCode.Created, userModel);
         }
 
         [HttpPost]
@@ -141,8 +155,10 @@ namespace Chat.Services.Controllers
                                         Username = user.Username,
                                         FirstName = user.FirstName,
                                         LastName = user.LastName,
-                                        ProfilePictureUrl = user.ProfilePictureUrl
+                                        ProfilePictureUrl = user.ProfilePictureUrl,
+                                        Online = true
                                     };
+
                 return Request.CreateResponse(HttpStatusCode.OK, userModel);
             }
             else
