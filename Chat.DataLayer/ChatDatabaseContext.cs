@@ -23,8 +23,8 @@ namespace Chat.DataLayer
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasMany(u => u.Contacts)
-                .WithMany(u => u.Contacts).Map(map =>
+                .HasMany(u => u.Contacts).WithMany()
+                .Map(map =>
                                                    {
                                                        map.ToTable("UsersUsers");
                                                        map.MapLeftKey("FirstUserId");
