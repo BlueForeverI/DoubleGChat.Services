@@ -64,6 +64,7 @@ namespace Chat.Services.Controllers
             {
                 var users = usersRepository.All()
                     .Where(u => u.Username.ToLower().Contains(value.QueryText.ToLower()))
+                    .Where(u => u.Username != user.Username)
                     .Select(u => new UserModel()
                                      {
                                          Id = u.Id,
@@ -100,6 +101,33 @@ namespace Chat.Services.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+        }
+
+        [HttpPost]
+        [ActionName("edit")]
+        public HttpResponseMessage EditUser([FromBody]UsedEditModel value,
+            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+            }
+
+            var userToEdit = new User()
+                                 {
+                                     FirstName = value.FirstName,
+                                     LastName = value.LastName,
+                                     PasswordHash = value.OldPasswordHash,
+                                     ProfilePictureUrl = value.ProfilePictureUrl
+                                 };
+
+            if(usersRepository.EditUser(userToEdit, value.NewPasswordHash))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.BadRequest, "Could not edit user");
         }
 
         [HttpPost]

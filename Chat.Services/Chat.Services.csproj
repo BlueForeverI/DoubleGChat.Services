@@ -171,6 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\QueryModel.cs" />
+    <Compile Include="Models\UsedEditModel.cs" />
     <Compile Include="Models\UserLoggedModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

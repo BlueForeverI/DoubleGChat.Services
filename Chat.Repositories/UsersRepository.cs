@@ -113,5 +113,21 @@ namespace Chat.Repositories
             user.Online = online;
             chatContext.SaveChanges();
         }
+
+        public bool EditUser(User value, string newPasswordHash)
+        {
+            var user = chatContext.Users.Find(value.Id);
+            if(user.Username != value.Username || user.PasswordHash != value.PasswordHash)
+            {
+                return false;
+            }
+
+            user.FirstName = value.FirstName;
+            user.LastName = value.LastName;
+            user.PasswordHash = newPasswordHash;
+            user.ProfilePictureUrl = value.ProfilePictureUrl;
+            chatContext.SaveChanges();
+            return true;
+        }
     }
 }
