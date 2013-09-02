@@ -139,6 +139,7 @@ namespace Chat.Repositories
                           join c in chatContext.Conversations on m.ConversationId equals c.Id
                           select new MissedConversationModel()
                                      {
+                                         Id = m.Id,
                                          ConversationId = c.Id,
                                          FirstName =
                                              (c.FirstUser.Username == user.Username)
