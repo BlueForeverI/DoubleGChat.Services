@@ -53,9 +53,9 @@ namespace Chat.Services.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, GetByUsers(users));
             }
 
-            if(user.MissedConversations.Any(m => m.Id == conversation.Id))
+            if(user.MissedConversations.Any(m => m.ConversationId == conversation.Id))
             {
-                var missed = user.MissedConversations.FirstOrDefault(m => m.Id == conversation.Id);
+                var missed = user.MissedConversations.FirstOrDefault(m => m.ConversationId == conversation.Id);
                 conversationsRepository.MarkRead(missed.Id);
             }
 
