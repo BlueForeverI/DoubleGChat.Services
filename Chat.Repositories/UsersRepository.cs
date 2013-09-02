@@ -132,5 +132,40 @@ namespace Chat.Repositories
             chatContext.SaveChanges();
             return true;
         }
+
+        public List<MissedConversationModel> GetMissedConversations(User user)
+        {
+            var missed = (from m in user.MissedConversations
+                          join c in chatContext.Conversations on m.ConversationId equals c.Id
+                          select new MissedConversationModel()
+                                     {
+                                         ConversationId = c.Id,
+                                         FirstName =
+                                             (c.FirstUser.Username == user.Username)
+                                                 ? c.SecondUser.FirstName
+                                                 : c.FirstUser.FirstName,
+                                         LastName =
+                                             (c.FirstUser.Username == user.Username)
+                                                 ? c.SecondUser.LastName
+                                                 : c.FirstUser.LastName,
+                                         Username =
+                                             (c.FirstUser.Username == user.Username)
+                                                 ? c.SecondUser.Username
+                                                 : c.FirstUser.Username,
+                                         ProfilePictureUrl =
+                                             (c.FirstUser.Username == user.Username)
+                                                 ? c.SecondUser.ProfilePictureUrl
+                                                 : c.FirstUser.ProfilePictureUrl,
+                                     }).ToList();
+
+            return missed;
+        }
+
+        public void AddMissedConversation(User receiver, Conversation conversation)
+        {
+            var user = chatContext.Users.Find(receiver.Id);
+            user.MissedConversations.Add(new MissedConversation(){ConversationId = conversation.Id});
+            chatContext.SaveChanges();
+        }
     }
 }

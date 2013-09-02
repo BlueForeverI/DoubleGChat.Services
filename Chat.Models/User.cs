@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,14 @@ namespace Chat.Models
         public bool Online { get; set; }
 
         public virtual ICollection<User> Contacts { get; set; }
-        public virtual ICollection<ContactRequest> ContactRequests { get; set; } 
+        public virtual ICollection<ContactRequest> ContactRequests { get; set; }
+        public virtual ICollection<MissedConversation> MissedConversations { get; set; } 
  
         public User()
         {
             Contacts = new HashSet<User>();
             ContactRequests = new HashSet<ContactRequest>();
+            MissedConversations = new HashSet<MissedConversation>();
         }
     }
 }

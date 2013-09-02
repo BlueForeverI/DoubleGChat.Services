@@ -42,6 +42,7 @@
     <Compile Include="ContactRequest.cs" />
     <Compile Include="Conversation.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="MissedConversation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

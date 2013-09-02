@@ -50,6 +50,12 @@ namespace Chat.Services.Controllers
 
             value.Conversation.Messages = new Collection<Message>();
             messagesRepository.Add(value);
+
+            var receiver = (value.Conversation.FirstUser.Username == user.Username)
+                               ? value.Conversation.SecondUser
+                               : value.Conversation.FirstUser;
+
+            usersRepository.AddMissedConversation(receiver, value.Conversation);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 

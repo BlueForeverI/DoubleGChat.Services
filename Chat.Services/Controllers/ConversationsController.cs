@@ -9,6 +9,7 @@ using System.Web.Http.ValueProviders;
 using Chat.DataLayer;
 using Chat.Models;
 using Chat.Repositories;
+using Chat.Services.Models;
 using Forum.WebApi.Attributes;
 
 namespace Chat.Services.Controllers
@@ -55,6 +56,20 @@ namespace Chat.Services.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, conversation);
         }
 
+        [HttpGet]
+        [ActionName("missed")]
+        public HttpResponseMessage GetMissedConversations(
+             [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+            }
+
+            var missed = usersRepository.GetMissedConversations(user);
+            return Request.CreateResponse(HttpStatusCode.OK, missed);
+        }
        
         private Conversation GetByUsers(User[] users)
         {
