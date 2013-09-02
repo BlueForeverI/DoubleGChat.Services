@@ -117,14 +117,17 @@ namespace Chat.Repositories
         public bool EditUser(User value, string newPasswordHash)
         {
             var user = chatContext.Users.Find(value.Id);
-            if(user.Username != value.Username || user.PasswordHash != value.PasswordHash)
+            if (value.PasswordHash != null)
             {
-                return false;
+                if (user.Username != value.Username || user.PasswordHash != value.PasswordHash)
+                {
+                    return false;
+                }
             }
 
-            user.FirstName = value.FirstName;
-            user.LastName = value.LastName;
-            user.PasswordHash = newPasswordHash;
+            user.FirstName = (value.FirstName != null) ? value.FirstName : user.FirstName;
+            user.LastName = (value.LastName != null) ? value.LastName : user.LastName;
+            user.PasswordHash = (value.PasswordHash != null) ? newPasswordHash : user.PasswordHash;
             user.ProfilePictureUrl = value.ProfilePictureUrl;
             chatContext.SaveChanges();
             return true;
