@@ -132,7 +132,7 @@ namespace Chat.Services.Controllers
                     Id = updatedUser.Id,
                     Username = updatedUser.Username,
                     SessionKey = sessionKey,
-                    FirstName = updatedUser.Username,
+                    FirstName = updatedUser.FirstName,
                     LastName = updatedUser.LastName,
                     Online = true,
                     ProfilePictureUrl = updatedUser.ProfilePictureUrl
