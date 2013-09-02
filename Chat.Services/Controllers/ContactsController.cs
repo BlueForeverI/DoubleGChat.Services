@@ -34,7 +34,7 @@ namespace Chat.Services.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
             }
 
-            var contacts = user.Contacts.OrderBy(c => c.Online).Select(u => new UserModel()
+            var contacts = user.Contacts.Select(u => new UserModel()
             {
                 Id = u.Id,
                 Username = u.Username,
