@@ -60,6 +60,13 @@ namespace Chat.Services.Controllers
 
             var receiver = usersRepository.Get(id);
 
+            if(sender.Contacts.Any(c => c.Id == id))
+            {
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest,
+                                              "You already have this person in contacts");
+            }
+
             if(usersRepository.SendContactRequest(sender, receiver))
             {
                 return Request.CreateResponse(HttpStatusCode.OK);
