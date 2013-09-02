@@ -19,10 +19,12 @@ namespace Chat.Repositories
 
         public override void Add(Message item)
         {
-            var conversation = chatContext.Conversations.Attach(item.Conversation);
+            var conversation = chatContext.Conversations.Find(item.Conversation.Id);
             item.Sender = (conversation.FirstUser.Id == item.Sender.Id) 
                 ? conversation.FirstUser 
                 : conversation.SecondUser;
+            item.Conversation = null;
+            item.Date = DateTime.Now;
 
             conversation.Messages.Add(item);
             chatContext.SaveChanges();
@@ -36,7 +38,14 @@ namespace Chat.Repositories
                                      Content = m.Content,
                                      Date = m.Date,
                                      Id = m.Id,
-                                     Sender = m.Sender
+                                     Sender = new User()
+                                                  {
+                                                      Id = m.Sender.Id,
+                                                      Username = m.Sender.Username,
+                                                      FirstName = m.Sender.FirstName,
+                                                      LastName = m.Sender.LastName,
+                                                      ProfilePictureUrl = m.Sender.ProfilePictureUrl
+                                                  }
                                  });
 
             return messages;
