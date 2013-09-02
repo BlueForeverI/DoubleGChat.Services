@@ -17,6 +17,12 @@ namespace Chat.Repositories
             this.chatContext = context;
         }
 
+        public void MarkRead(int missedId)
+        {
+            var missedConversation = chatContext.MissedConversations.Find(missedId);
+            chatContext.MissedConversations.Remove(missedConversation);
+            chatContext.SaveChanges();
+        }
 
         public Conversation GetByUsers(string firstUsername, string secondUsername)
         {

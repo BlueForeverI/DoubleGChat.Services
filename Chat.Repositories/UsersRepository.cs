@@ -128,7 +128,7 @@ namespace Chat.Repositories
             user.FirstName = (value.FirstName != null) ? value.FirstName : user.FirstName;
             user.LastName = (value.LastName != null) ? value.LastName : user.LastName;
             user.PasswordHash = (value.PasswordHash != null) ? newPasswordHash : user.PasswordHash;
-            user.ProfilePictureUrl = value.ProfilePictureUrl;
+            user.ProfilePictureUrl = (value.ProfilePictureUrl != null) ? value.ProfilePictureUrl : user.ProfilePictureUrl;
             chatContext.SaveChanges();
             return true;
         }

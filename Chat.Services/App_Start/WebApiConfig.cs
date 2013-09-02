@@ -33,8 +33,8 @@ namespace Chat.Services
 
             config.Routes.MapHttpRoute(
                    name: "ConversationsApi",
-                   routeTemplate: "api/conversations/{action}",
-                   defaults: new { controller = "conversations" }
+                   routeTemplate: "api/conversations/{action}/{id}",
+                   defaults: new { controller = "conversations", id = RouteParameter.Optional }
                );
 
             config.Routes.MapHttpRoute(

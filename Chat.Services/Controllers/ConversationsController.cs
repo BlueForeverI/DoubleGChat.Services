@@ -57,6 +57,21 @@ namespace Chat.Services.Controllers
         }
 
         [HttpGet]
+        [ActionName("markread")]
+        public HttpResponseMessage ReadMissed(int id, 
+            [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
+        {
+            var user = usersRepository.GetBySessionKey(sessionKey);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
+            }
+
+            conversationsRepository.MarkRead(id);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpGet]
         [ActionName("missed")]
         public HttpResponseMessage GetMissedConversations(
              [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)

@@ -19,6 +19,7 @@ namespace Chat.DataLayer
         public DbSet<Message> Messages { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<ContactRequest> ContactRequests { get; set; }
+        public DbSet<MissedConversation> MissedConversations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
