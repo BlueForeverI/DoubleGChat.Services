@@ -79,7 +79,7 @@ namespace Chat.Services.Controllers
 
         [HttpGet]
         [ActionName("missed")]
-        public HttpResponseMessage GetMissedConversations(
+        public HttpResponseMessage GetMissedConversations(int id,
              [ValueProvider(typeof(HeaderValueProviderFactory<String>))] String sessionKey)
         {
             var user = usersRepository.GetBySessionKey(sessionKey);
@@ -88,7 +88,7 @@ namespace Chat.Services.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid session key");
             }
 
-            var missed = usersRepository.GetMissedConversations(user);
+            var missed = usersRepository.GetMissedConversations(user, id);
             return Request.CreateResponse(HttpStatusCode.OK, missed);
         }
        

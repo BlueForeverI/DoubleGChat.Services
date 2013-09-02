@@ -133,10 +133,11 @@ namespace Chat.Repositories
             return true;
         }
 
-        public List<MissedConversationModel> GetMissedConversations(User user)
+        public List<MissedConversationModel> GetMissedConversations(User user, int id)
         {
             var missed = (from m in user.MissedConversations
                           join c in chatContext.Conversations on m.ConversationId equals c.Id
+                          where c.Id != id
                           select new MissedConversationModel()
                                      {
                                          Id = m.Id,
