@@ -19,7 +19,7 @@ namespace Chat.Repositories
 
         public override void Add(Message item)
         {
-            var conversation = chatContext.Conversations.Find(item.Conversation.Id);
+            var conversation = chatContext.Conversations.FirstOrDefault(c => c.Id == item.Conversation.Id);
             item.Sender = (conversation.FirstUser.Id == item.Sender.Id) 
                 ? conversation.FirstUser 
                 : conversation.SecondUser;
