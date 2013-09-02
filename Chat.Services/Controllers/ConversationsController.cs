@@ -53,6 +53,12 @@ namespace Chat.Services.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, GetByUsers(users));
             }
 
+            if(user.MissedConversations.Any(m => m.Id == conversation.Id))
+            {
+                var missed = user.MissedConversations.FirstOrDefault(m => m.Id == conversation.Id);
+                conversationsRepository.MarkRead(missed.Id);
+            }
+
             return Request.CreateResponse(HttpStatusCode.OK, conversation);
         }
 
