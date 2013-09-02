@@ -126,7 +126,19 @@ namespace Chat.Services.Controllers
 
             if(usersRepository.EditUser(userToEdit, value.NewPasswordHash))
             {
-                return Request.CreateResponse(HttpStatusCode.OK);
+                var updatedUser = usersRepository.Get(userToEdit.Id);
+                var userModel = new UserModel()
+                {
+                    Id = updatedUser.Id,
+                    Username = updatedUser.Username,
+                    SessionKey = sessionKey,
+                    FirstName = updatedUser.Username,
+                    LastName = updatedUser.LastName,
+                    Online = true,
+                    ProfilePictureUrl = updatedUser.ProfilePictureUrl
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, userModel);
             }
 
             return Request.CreateResponse(HttpStatusCode.BadRequest, "Could not edit user");
