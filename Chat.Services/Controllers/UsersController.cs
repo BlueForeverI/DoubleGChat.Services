@@ -116,6 +116,7 @@ namespace Chat.Services.Controllers
 
             var userToEdit = new User()
                                  {
+                                     Username = user.Username,
                                      FirstName = value.FirstName,
                                      LastName = value.LastName,
                                      PasswordHash = value.OldPasswordHash,
