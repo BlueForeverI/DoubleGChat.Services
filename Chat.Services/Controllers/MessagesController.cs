@@ -25,18 +25,6 @@ namespace Chat.Services.Controllers
             usersRepository = new UsersRepository(context);
         }
 
-        [HttpGet]
-        public IQueryable<Message> Get()
-        {
-            return messagesRepository.All();
-        }
-
-        [HttpGet]
-        public Message Get(int id)
-        {
-            return messagesRepository.Get(id);
-        }
-
         [HttpPost]
         [ActionName("send")]
         public HttpResponseMessage Post([FromBody]Message value,

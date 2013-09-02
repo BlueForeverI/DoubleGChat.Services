@@ -8,8 +8,8 @@ namespace Chat.Models
     public class Conversation
     {
         public int Id { get; set; }
-        public User FirstUser { get; set; }
-        public User SecondUser { get; set; }
+        public virtual User FirstUser { get; set; }
+        public virtual User SecondUser { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; } 
 
