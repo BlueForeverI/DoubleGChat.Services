@@ -165,8 +165,11 @@ namespace Chat.Repositories
         public void AddMissedConversation(User receiver, Conversation conversation)
         {
             var user = chatContext.Users.Find(receiver.Id);
-            user.MissedConversations.Add(new MissedConversation(){ConversationId = conversation.Id});
-            chatContext.SaveChanges();
+            if (!receiver.MissedConversations.Any(c => c.ConversationId == conversation.Id))
+            {
+                user.MissedConversations.Add(new MissedConversation() {ConversationId = conversation.Id});
+                chatContext.SaveChanges();
+            }
         }
     }
 }
